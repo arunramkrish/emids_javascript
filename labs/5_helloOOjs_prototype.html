@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello Javascript</title>
+</head>
+<body>
+<h1>Hello to OO Javascript</h1>
+<input type="button" value="Greet" onclick="greet();"></input>
+<input type="button" value="Greet Window" onclick="greetWindow();"></input>
+<input type="button" value="Greet Object" onclick="greetObject();"></input>
+<input type="button" value="Greet Json" onclick="greetJson();"></input>
+<input type="button" value="Greet Function1" onclick="greetFunction(greetFunction1);"></input>
+<input type="button" value="Greet Function2" onclick="greetFunction(greetFunction2);"></input>
+
+<div id="result"></div>
+</body>
+<script>
+function greetFunction(f) {
+	var fg1 = new FunctionGreeting(f);
+	var fg2 = new FunctionGreeting(f);
+	var fg3 = new FunctionGreeting(f);
+	
+	document.getElementById("result").innerHTML = fg1.doGreet() +  fg2.doGreet() +  fg3.doGreet();
+}
+var FunctionGreeting = function(greetFunction) {
+	var greet = greetFunction;
+	this.doGreet = function() {
+		return greet();
+	};
+};
+console.log("M1 " + m1);
+
+function greetFunction1() {
+	return "I am fn1";
+}
+
+function greetFunction2() {
+	return "I am fn2";
+}
+
+function greet() {
+	var greeting = new Greeting("Hello Object");
+	document.getElementById("result").innerHTML = greeting.message;
+}
+function greetWindow() {
+	Greeting("Hello Object");
+	document.getElementById("result").innerHTML = window["message"];
+}
+function greetJson() {
+	var greeting = {"message" : "Hi I am Json"};
+	document.getElementById("result").innerHTML = greeting.message;
+}
+function greetObject() {
+	var greeting = new Object();
+	greeting.message = "Hello I am object";
+	greeting.toString = function() {
+		return this.message;
+	};
+	
+	document.getElementById("result").innerHTML = greeting.toString();
+}
+var m1 = "something";
+var Greeting = function(msg) {
+
+	this.message = msg;
+	
+	this.toString = function() {
+		return this.message;
+	};
+};
+</script>
+</html>

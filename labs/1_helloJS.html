@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Hello Javascript</title>
+</head>
+<body>
+<h1>Hello to Javascript</h1>
+<input type="button" value="Click me to speak" onclick="sayHello();"/>
+<div id="textDiv"></div>
+<script>
+alert('Hello Javascript');
+function sayHello() {
+	alert("Hi! I am button");
+}
+</script>
+<script>
+var msg = "Hi! If you see me, all is fine with the page";
+//var i;
+msg = 6;
+try {
+	if (i) {
+		console.log(i);
+	} else {
+		console.log("Not defined");
+	}
+} catch (e) {
+	console.log(e.message);
+}
+</script>
+<script>
+document.getElementById("textDiv").innerHTML = 'Hi Div';
+</script>
+</body>
+</html>

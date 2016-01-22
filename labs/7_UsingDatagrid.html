@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emids Medical Record</title>
+<script type="text/javascript" src="scripts/datagrid.js">
+<link rel="stylesheet" href="styles/theme1.css" type="text/css"/>
+</script>
+</head>
+<body>
+<h1>Doctors and Patients</h1>
+<div id="records"></div>
+</body>
+<script>
+
+var domQuery = (function () {
+	console.log("Hello");
+	var fn = new Function('return "I am a function";');
+	return fn;
+})();
+
+console.log(domQuery());
+
+var patients = [];
+patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+patients.push({"MRN": "HZSE12jhgghjgjgj", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+
+var columnModel = [{
+	"columnTitle": "MRN",
+	"renderColumn" : function(record, parentElement) {
+		return record["MRN"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+}, {
+	"columnTitle": "Patient Name",
+	"renderColumn" : function(record, parentElement) {
+		return record["name"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+},{
+	"columnTitle": "Contact No",
+	"renderColumn" : function(record, parentElement) {
+		return record["contact"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+}];	
+var datagrid = new DataGrid("records", patients, columnModel);
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emids Medical Record</title>
+<script type="text/javascript" src="scripts/datagrid.js">
+</script>
+<link rel="stylesheet" href="styles/theme1.css" type="text/css"/>
+</head>
+<body>
+<h1>Doctors and Patients</h1>
+<div id="records"></div>
+</body>
+<script>
+var patients = [];
+var columnModel = [{
+	"columnTitle": "MRN",
+	"renderColumn" : function(record, parentElement) {
+		return record["MRN"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+}, {
+	"columnTitle": "Patient Name",
+	"renderColumn" : function(record, parentElement) {
+		return record["name"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+},{
+	"columnTitle": "Contact No",
+	"renderColumn" : function(record, parentElement) {
+		return record["contact"];
+	},
+	"sortingFunction" : function(r1, r2) {
+	}
+}];	
+var datagrid;
+var httpRequest;
+function makeRequest(url, callback) {
+    httpRequest = new XMLHttpRequest();
+
+    if (!httpRequest) {
+      alert('Giving up :( Cannot create an XMLHTTP instance');
+      return false;
+    }
+    httpRequest.onreadystatechange = callback;
+    httpRequest.open('GET', url);
+    httpRequest.send();
+}
+function loadPatients() {
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+      if (httpRequest.status === 200) {
+         patients = JSON.parse(httpRequest.responseText);
+		 datagrid = new DataGrid("records", patients, columnModel);
+      } else {
+        alert('There was a problem with the request.');
+      }
+    }
+}
+//makeRequest("data/patients.json", loadPatients);
+//datagrid = new DataGrid("records", "data/patients.json?callback=paddedFunction", columnModel);
+</script>
+<script>
+function paddedFunction(data) {
+	datagrid = new DataGrid("records", data, columnModel);
+}
+
+</script>
+<script src="http://localhost:8080/data/patients.json?callback=paddedFunction" type="text/javascript"/>
+
+</html>

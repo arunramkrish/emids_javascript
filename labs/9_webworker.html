@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+	<title>Web worker</title>
+</head>
+<body>
+	<div>
+		<input type="button" value="Invoke Worker" onclick="processWithWorker();"/>
+	</div>
+</body>
+<script>
+var myWorker;
+if (window.Worker) {
+	myWorker = new Worker("scripts/worker.js");
+	
+	myWorker.onmessage = function(e) {
+		console.log('Message received from worker ' + e.data);
+	}
+}
+
+function processWithWorker() {
+	if (myWorker) {
+		myWorker.postMessage("message from main thread");
+	}
+}
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<title>Prototype Chaining</title>
+</head>
+<script>
+// Shape - superclass
+var factor = 10;
+function Shape(obj) {
+	var x;
+	if (obj) {
+		x = (obj.x) ? obj.x : 0;
+		this.y = (obj.y) ? obj.y : x;
+	}
+	this.getX = function() {
+		return x;
+	};
+	this.setX = function(newX) {
+		x = newX * factor;
+	}
+	
+}
+var o = {x:5, y:7};
+
+var oShape = new Shape(o);
+
+// superclass method
+Shape.prototype.move = function(x, y) {
+  this.setX = this.getX() + x;
+  this.y += y;
+  console.info('Shape moved by ' + x + ',' + y );
+  return "(" + this.getX() + "," + this.y + ")";
+};
+Shape.prototype.area = function() {
+  return this.getX() * this.y;
+};
+function Rectangle() {
+  Shape.apply(this, arguments); // call super constructor.
+}
+Rectangle.prototype = Object.create(Shape.prototype);
+Rectangle.prototype.constructor = Rectangle;
+
+Rectangle.prototype.isSquare = function() {
+	return (this.getX() === this.y); 
+};
+Rectangle.prototype.area = function() {
+	return (this.getX() + this.y); 
+};
+
+var o = Object.create(Object.create(Shape.prototype));
+Object.getPrototypeOf(o).constructor = Rectangle;
+Rectangle.call(o, {x:5,y:4});
+
+var s1 = new Rectangle({x:5,y:4});
+var s2 = new Shape({x:6});
+
+var myObject = {x:2, y:7};
+
+function shape1() {
+	document.write(s1.area());
+}
+function shape2() {
+	//document.write(s2.area());
+	//document.write(s2.area.call(myObject));
+	document.write(s2.move.call(myObject,2,3));
+	document.write(s2.move.apply(myObject,[1,1]));
+}
+</script>
+<body>
+	<div>Shape 1<script>shape1();</script></div>
+	<div>Shape 2<script>shape2();</script></div>
+</body>
+</html>

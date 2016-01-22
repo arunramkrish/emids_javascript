@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emids Medical Record</title>
+</head>
+<body>
+<h1>Doctors and Patients</h1>
+<input type="button" value="Display Doctors" onclick="displayRecords(loadDoctorsStandalone);"/>
+<input type="button" value="Display Patients" onclick="displayRecords(loadPatientsStandalone);"/>
+<div id="records"></div>
+</body>
+<script>
+function Doctor(regNo, name, qualification, department, contactNo) {
+	this.regNo = regNo;
+	this.name = name;
+	this.qualification = qualification;
+	this.department = department;
+	this.contactNo = contactNo;
+/*
+	this.toString = function() {
+		return "<div><span>" + this.regNo + "</span><span>" + this.name + "</span><span>" + this.qualification + "</span><span>" + this.department + "</span><span>" + this.contactNo + "</span></div>"
+	};
+	*/
+}
+function loadDoctorsStandalone() {
+	var doctors = [];
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	
+	return doctors;
+}
+function loadPatientsStandalone() {
+	var patients = [];
+	patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+	patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+	patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+	patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+	patients.push({"MRN": "HZSE12345", "name":"Arun K", "contact":"987654567", "regDate":"2015-01-01"});
+	
+	return patients;
+}
+function displayRecords(loadFunction) {
+	var innerHTML = "";
+	var records = loadFunction();
+	for (var d in records) {
+		var record = records[d];
+		innerHTML += "<div>";
+		var properties = Object.getOwnPropertyNames(record);
+		for (var p in properties) {
+			innerHTML += "<span>" + properties[p] + ":" + record[properties[p]] + "&nbsp;</span>" ;
+		}
+	}
+	document.getElementById("records").innerHTML = innerHTML;
+}
+</script>
+</html>

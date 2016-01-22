@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Emids Doctors</title>
+</head>
+<body>
+<h1>Doctors</h1>
+<input type="button" value="Display Doctors" onclick="displayDoctors(loadDoctorsStandalone);"/>
+<div id="doctors"></div>
+</body>
+<script>
+function Doctor(regNo, name, qualification, department, contactNo) {
+	this.regNo = regNo;
+	this.name = name;
+	this.qualification = qualification;
+	this.department = department;
+	this.contactNo = contactNo;
+
+	this.toString = function() {
+		return "<div><span>" + this.regNo + "</span><span>" + this.name + "</span><span>" + this.qualification + "</span><span>" + this.department + "</span><span>" + this.contactNo + "</span></div>"
+	};
+	
+}
+function loadDoctorsStandalone() {
+	var doctors = [];
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	doctors.push(new Doctor("A1234", "Arun K", "MBBS, MD, DM", "Cardio", "99876587698"));
+	
+	return doctors;
+}
+function displayDoctors(loadFunction) {
+	var innerHTML = "";
+	var doctors = loadFunction();
+	for (var d in doctors) {
+		var doctor = doctors[d];
+		innerHTML += "<div>";
+		var properties = Object.getOwnPropertyNames(doctor);
+		for (var p in properties) {
+			innerHTML += "<span>" + properties[p] + ":" + doctor[properties[p]] + "&nbsp;</span>" ;
+		}
+	}
+	document.getElementById("doctors").innerHTML = innerHTML;
+}
+</script>
+</html>
